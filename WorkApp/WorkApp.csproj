@@ -177,13 +177,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\default-user.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\back.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\default-user.png" />
@@ -195,13 +189,7 @@
     <None Include="Resources\delete.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\close.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\close_white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\back2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\back3.png" />

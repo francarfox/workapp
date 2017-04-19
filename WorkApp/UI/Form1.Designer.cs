@@ -32,23 +32,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.username = new System.Windows.Forms.Label();
             this.topPanel = new System.Windows.Forms.Panel();
+            this.close = new System.Windows.Forms.PictureBox();
             this.sidePanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.bunifuElipse1 = new ns1.BunifuElipse(this.components);
-            this.bunifuDragControl1 = new ns1.BunifuDragControl(this.components);
-            this.homeMenu1 = new WorkApp.UI.HomeMenu();
-            this.workersMenu1 = new WorkApp.UI.WorkersMenu();
-            this.settingsMenu1 = new WorkApp.UI.SettingsMenu();
             this.menu3 = new ns1.BunifuFlatButton();
             this.menu2 = new ns1.BunifuFlatButton();
             this.menu1 = new ns1.BunifuFlatButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.close = new System.Windows.Forms.PictureBox();
+            this.bunifuElipse1 = new ns1.BunifuElipse(this.components);
+            this.bunifuDragControl1 = new ns1.BunifuDragControl(this.components);
+            this.homeMenu1 = new WorkApp.UI.HomeMenu();
+            this.settingsMenu1 = new WorkApp.UI.SettingsMenu();
             this.topPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.close)).BeginInit();
             this.sidePanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.close)).BeginInit();
             this.SuspendLayout();
             // 
             // username
@@ -75,6 +74,17 @@
             this.topPanel.Size = new System.Drawing.Size(706, 42);
             this.topPanel.TabIndex = 12;
             // 
+            // close
+            // 
+            this.close.Image = ((System.Drawing.Image)(resources.GetObject("close.Image")));
+            this.close.Location = new System.Drawing.Point(664, 8);
+            this.close.Name = "close";
+            this.close.Size = new System.Drawing.Size(30, 30);
+            this.close.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.close.TabIndex = 0;
+            this.close.TabStop = false;
+            this.close.Click += new System.EventHandler(this.close_Click);
+            // 
             // sidePanel
             // 
             this.sidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
@@ -87,52 +97,6 @@
             this.sidePanel.Name = "sidePanel";
             this.sidePanel.Size = new System.Drawing.Size(153, 406);
             this.sidePanel.TabIndex = 13;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(153, 84);
-            this.panel1.TabIndex = 0;
-            // 
-            // bunifuElipse1
-            // 
-            this.bunifuElipse1.ElipseRadius = 15;
-            this.bunifuElipse1.TargetControl = this;
-            // 
-            // bunifuDragControl1
-            // 
-            this.bunifuDragControl1.Fixed = true;
-            this.bunifuDragControl1.Horizontal = true;
-            this.bunifuDragControl1.TargetControl = this.topPanel;
-            this.bunifuDragControl1.Vertical = true;
-            // 
-            // homeMenu1
-            // 
-            this.homeMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.homeMenu1.Location = new System.Drawing.Point(153, 42);
-            this.homeMenu1.Name = "homeMenu1";
-            this.homeMenu1.Size = new System.Drawing.Size(553, 406);
-            this.homeMenu1.TabIndex = 15;
-            // 
-            // workersMenu1
-            // 
-            this.workersMenu1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.workersMenu1.Location = new System.Drawing.Point(153, 42);
-            this.workersMenu1.Name = "workersMenu1";
-            this.workersMenu1.Size = new System.Drawing.Size(553, 406);
-            this.workersMenu1.TabIndex = 15;
-            // 
-            // settingsMenu1
-            // 
-            this.settingsMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsMenu1.Location = new System.Drawing.Point(153, 42);
-            this.settingsMenu1.Name = "settingsMenu1";
-            this.settingsMenu1.Size = new System.Drawing.Size(553, 406);
-            this.settingsMenu1.TabIndex = 14;
             // 
             // menu3
             // 
@@ -242,6 +206,16 @@
             this.menu1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menu1.Click += new System.EventHandler(this.menu1_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(153, 84);
+            this.panel1.TabIndex = 0;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(49, 25);
@@ -250,16 +224,33 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // close
+            // bunifuElipse1
             // 
-            this.close.Image = ((System.Drawing.Image)(resources.GetObject("close.Image")));
-            this.close.Location = new System.Drawing.Point(664, 8);
-            this.close.Name = "close";
-            this.close.Size = new System.Drawing.Size(30, 30);
-            this.close.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.close.TabIndex = 0;
-            this.close.TabStop = false;
-            this.close.Click += new System.EventHandler(this.close_Click);
+            this.bunifuElipse1.ElipseRadius = 15;
+            this.bunifuElipse1.TargetControl = this;
+            // 
+            // bunifuDragControl1
+            // 
+            this.bunifuDragControl1.Fixed = true;
+            this.bunifuDragControl1.Horizontal = true;
+            this.bunifuDragControl1.TargetControl = this.topPanel;
+            this.bunifuDragControl1.Vertical = true;
+            // 
+            // homeMenu1
+            // 
+            this.homeMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.homeMenu1.Location = new System.Drawing.Point(153, 42);
+            this.homeMenu1.Name = "homeMenu1";
+            this.homeMenu1.Size = new System.Drawing.Size(553, 406);
+            this.homeMenu1.TabIndex = 15;
+            // 
+            // settingsMenu1
+            // 
+            this.settingsMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsMenu1.Location = new System.Drawing.Point(153, 42);
+            this.settingsMenu1.Name = "settingsMenu1";
+            this.settingsMenu1.Size = new System.Drawing.Size(553, 406);
+            this.settingsMenu1.TabIndex = 14;
             // 
             // Form1
             // 
@@ -268,7 +259,6 @@
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(706, 448);
             this.Controls.Add(this.homeMenu1);
-            this.Controls.Add(this.workersMenu1);
             this.Controls.Add(this.settingsMenu1);
             this.Controls.Add(this.sidePanel);
             this.Controls.Add(this.topPanel);
@@ -277,10 +267,10 @@
             this.Text = "WorkApp";
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.close)).EndInit();
             this.sidePanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.close)).EndInit();
             this.ResumeLayout(false);
 
         }
