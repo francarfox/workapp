@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace WorkApp.UI
 {
@@ -25,40 +26,62 @@ namespace WorkApp.UI
             name1.Text = worker.name;
             label1.Text = "";
 
-            loadPayments();
+            //loadPayments();
+            initializeListViews();
         }
 
         private void initializeCells()
         {
             cells = new List<PaymentCell>();
-            cells.Add(paymentCell1);
-            cells.Add(paymentCell2);
-            cells.Add(paymentCell3);
-            cells.Add(paymentCell4);
-            cells.Add(paymentCell5);
-            cells.Add(paymentCell6);
-            cells.Add(paymentCell7);
-            cells.Add(paymentCell8);
-            cells.Add(paymentCell9);
-            cells.Add(paymentCell10);
-            cells.Add(paymentCell11);
-            cells.Add(paymentCell12);
-            cells.Add(paymentCell13);
-            cells.Add(paymentCell14);
-            cells.Add(paymentCell15);
-            cells.Add(paymentCell16);
-            cells.Add(paymentCell17);
-            cells.Add(paymentCell18);
-            cells.Add(paymentCell19);
-            cells.Add(paymentCell20);
-            cells.Add(paymentCell21);
-            cells.Add(paymentCell22);
-            cells.Add(paymentCell23);
-            cells.Add(paymentCell24);
-            cells.Add(paymentCell25);
-            cells.Add(paymentCell26);
-            cells.Add(paymentCell27);
-            cells.Add(paymentCell28);
+        }
+
+        private void initializeListViews()
+        {
+            int currentYear = 0;
+            int currentMonth = 0;
+            int currentDay = 0;
+            string currentMonthName = "";
+
+            for (int i = 0; i < worker.payments.Count; i++)
+            {
+                Payment payment = worker.payments[i];
+
+                //date group - year
+                if (payment.date.Year != currentYear)
+                {
+                    currentYear = payment.date.Year;
+                    ListViewGroup group = new ListViewGroup(currentYear.ToString());
+                    dateListView.Groups.Add(group);
+                }
+
+                //date item - month
+                if (payment.date.Month != currentMonth)
+                {
+                    currentMonth = payment.date.Month;
+                    ListViewGroup dateGroup = dateListView.Groups[dateListView.Groups.Count - 1];
+                    string monthName = payment.date.ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+                    currentMonthName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monthName);
+
+                    ListViewItem dateItem = new ListViewItem(currentMonthName, dateGroup);
+                    dateListView.Items.Add(dateItem);
+                }
+
+                //amount group - day
+                if (payment.date.Day != currentDay)
+                {
+                    currentDay = payment.date.Day;
+                    string dayOfWeekName = payment.date.ToString("dddd", CultureInfo.CreateSpecificCulture("es"));
+                    string groupName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dayOfWeekName) + " " + currentDay.ToString() + " de " + currentMonthName;
+
+                    ListViewGroup group = new ListViewGroup(groupName);
+                    amountListView.Groups.Add(group);
+                }
+
+                //amount item - all
+                ListViewGroup currentGroup = amountListView.Groups[amountListView.Groups.Count - 1];
+                ListViewItem item = new ListViewItem(payment.amount.ToString(), currentGroup);
+                amountListView.Items.Add(item);
+            }
         }
 
         private void loadPayments()
@@ -166,5 +189,6 @@ namespace WorkApp.UI
 
             percentButton1.Text = "Resultado: " + result;
         }
+
     }
 }
