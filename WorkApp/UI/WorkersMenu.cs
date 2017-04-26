@@ -144,6 +144,7 @@ namespace WorkApp.UI
         {
             currentPage -= 1;
             next1.Visible = true;
+            delete1.Visible = false;
 
             loadWorkers();
 
@@ -159,6 +160,7 @@ namespace WorkApp.UI
         {
             currentPage += 1;
             back1.Visible = true;
+            delete1.Visible = false;
 
             loadWorkers();
         }

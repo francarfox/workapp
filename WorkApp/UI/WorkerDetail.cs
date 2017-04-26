@@ -123,6 +123,9 @@ namespace WorkApp.UI
             {
                 weekSelected.SubItems.Add(calculatePercent(totalAmount).ToString("n2"));
             }
+
+            //scroll to bottom
+            amountListView.EnsureVisible(amountListView.Items.Count - 1);
         }
 
         public static string getGroupName(DateTime date)
@@ -232,6 +235,12 @@ namespace WorkApp.UI
 
         private void amountListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            if (amountListView.Items[e.ItemIndex].Group.Header == "Total")
+            {
+                amountListView.Items[e.ItemIndex].Selected = false;
+                return;
+            }
+
             if (e.IsSelected && weekSelected != null)
             {
                 try
