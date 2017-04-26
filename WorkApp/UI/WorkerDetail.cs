@@ -153,20 +153,6 @@ namespace WorkApp.UI
             reloadPayments();
         }
 
-        public void selectPaymentCell(PaymentCell cell)
-        {
-            //    if (cellSelected != null)
-            //    {
-            //        cellSelected.deselect();
-            //    }
-
-            //    cellSelected = cell;
-
-            bool selected = cell != null;
-            edit1.Visible = selected;
-            delete1.Visible = selected;
-        }
-
         private void back_MouseClick(object sender, MouseEventArgs e)
         {
             this.Parent.Controls.Remove(this);
@@ -174,13 +160,15 @@ namespace WorkApp.UI
 
         private void edit1_Click(object sender, EventArgs e)
         {
-            //if (cellSelected != null)
-            //{
-            //    cellSelected.edit();
+            if (paymentSelected != null)
+            {
+                PaymentForm dialog = new PaymentForm("Editar Monto");
+                dialog.loadPayment(paymentSelected);
+                dialog.StartPosition = FormStartPosition.CenterParent;
+                dialog.ShowDialog();
+            }
 
-            //    edit1.Visible = false;
-            //    delete1.Visible = false;
-            //}
+            showOptions(false);
         }
 
         private void delete1_Click(object sender, EventArgs e)
@@ -188,10 +176,10 @@ namespace WorkApp.UI
             if (paymentSelected != null)
             {
                 deletePayment(paymentSelected);
-
-                showOptions(false);
                 paymentSelected = null;
             }
+
+            showOptions(false);
         }
 
         private void percent1_Click(object sender, EventArgs e)
@@ -243,19 +231,41 @@ namespace WorkApp.UI
             delete1.Visible = show;
         }
 
-        private void addButton1_Click(object sender, EventArgs e)
+        private void name1_DoubleClick(object sender, EventArgs e)
         {
-            try
-            {
-                double amount = Convert.ToDouble(textbox1.Text);
-                Payment newPayment = new Payment(amount);
-
-                addPayment(newPayment);
-                textbox1.Text = "";
-            }
-            catch { }
+            name1.Visible = false;
+            textbox1.Visible = true;
+            textbox1.Text = name1.Text;
         }
 
+        private void textbox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (textbox1.Text != "" && textbox1.Text != worker.name)
+                {
+                    worker.name = textbox1.Text;
+
+                    Session.sharedInstance.saveWorker(worker);
+
+                    name1.Text = worker.name;
+
+                    ((WorkersMenu)Parent).loadWorkers();
+                }
+
+                name1.Visible = true;
+                textbox1.Visible = false;
+            }
+        }
+
+        private void addButton1_Click(object sender, EventArgs e)
+        {
+            PaymentForm dialog = new PaymentForm("Agregar Monto");
+            dialog.StartPosition = FormStartPosition.CenterParent;
+            dialog.ShowDialog();
+
+            showOptions(false);
+        }
     }
 }
 

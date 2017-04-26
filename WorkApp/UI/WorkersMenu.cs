@@ -48,7 +48,7 @@ namespace WorkApp.UI
             cells.Add(workerCell20);
         }
 
-        private void loadWorkers()
+        public void loadWorkers()
         {
             List<Worker> workers = Session.sharedInstance.company.workers;
 

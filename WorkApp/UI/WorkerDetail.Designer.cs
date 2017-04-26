@@ -35,10 +35,9 @@
             this.delete1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textbox1 = new ns1.BunifuMaterialTextbox();
-            this.addButton1 = new ns1.BunifuFlatButton();
             this.label2 = new System.Windows.Forms.Label();
             this.total1 = new System.Windows.Forms.Label();
+            this.addButton1 = new ns1.BunifuFlatButton();
             this.name1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -50,6 +49,7 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.textbox1 = new ns1.BunifuMaterialTextbox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.back)).BeginInit();
@@ -60,6 +60,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.edit1);
             this.panel1.Controls.Add(this.back);
             this.panel1.Controls.Add(this.delete1);
@@ -120,8 +121,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.textbox1);
-            this.panel2.Controls.Add(this.addButton1);
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.total1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -130,25 +130,24 @@
             this.panel2.Size = new System.Drawing.Size(553, 38);
             this.panel2.TabIndex = 2;
             // 
-            // textbox1
+            // label2
             // 
-            this.textbox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.textbox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textbox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.textbox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.textbox1.HintForeColor = System.Drawing.Color.Empty;
-            this.textbox1.HintText = "";
-            this.textbox1.isPassword = false;
-            this.textbox1.LineFocusedColor = System.Drawing.Color.Green;
-            this.textbox1.LineIdleColor = System.Drawing.Color.Gray;
-            this.textbox1.LineMouseHoverColor = System.Drawing.Color.Green;
-            this.textbox1.LineThickness = 3;
-            this.textbox1.Location = new System.Drawing.Point(369, -4);
-            this.textbox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textbox1.Name = "textbox1";
-            this.textbox1.Size = new System.Drawing.Size(74, 33);
-            this.textbox1.TabIndex = 39;
-            this.textbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(175, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Total:";
+            // 
+            // total1
+            // 
+            this.total1.AutoSize = true;
+            this.total1.Location = new System.Drawing.Point(222, 3);
+            this.total1.Name = "total1";
+            this.total1.Size = new System.Drawing.Size(33, 13);
+            this.total1.TabIndex = 21;
+            this.total1.Text = "total1";
             // 
             // addButton1
             // 
@@ -172,38 +171,19 @@
             this.addButton1.IconVisible = true;
             this.addButton1.IconZoom = 90D;
             this.addButton1.IsTab = false;
-            this.addButton1.Location = new System.Drawing.Point(460, 3);
+            this.addButton1.Location = new System.Drawing.Point(187, 68);
             this.addButton1.Name = "addButton1";
             this.addButton1.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
             this.addButton1.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
             this.addButton1.OnHoverTextColor = System.Drawing.Color.White;
             this.addButton1.selected = false;
-            this.addButton1.Size = new System.Drawing.Size(77, 26);
+            this.addButton1.Size = new System.Drawing.Size(77, 30);
             this.addButton1.TabIndex = 37;
             this.addButton1.Text = "Agregar";
             this.addButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.addButton1.Textcolor = System.Drawing.Color.White;
             this.addButton1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addButton1.Click += new System.EventHandler(this.addButton1_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(175, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "Total:";
-            // 
-            // total1
-            // 
-            this.total1.AutoSize = true;
-            this.total1.Location = new System.Drawing.Point(222, 3);
-            this.total1.Name = "total1";
-            this.total1.Size = new System.Drawing.Size(33, 13);
-            this.total1.TabIndex = 21;
-            this.total1.Text = "total1";
             // 
             // name1
             // 
@@ -214,6 +194,7 @@
             this.name1.Size = new System.Drawing.Size(37, 13);
             this.name1.TabIndex = 23;
             this.name1.Text = "name";
+            this.name1.DoubleClick += new System.EventHandler(this.name1_DoubleClick);
             // 
             // label1
             // 
@@ -271,12 +252,36 @@
             this.amountListView.View = System.Windows.Forms.View.Details;
             this.amountListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.amountListView_ItemSelectionChanged);
             // 
+            // textbox1
+            // 
+            this.textbox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textbox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.textbox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.textbox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textbox1.HintForeColor = System.Drawing.Color.Empty;
+            this.textbox1.HintText = "";
+            this.textbox1.isPassword = false;
+            this.textbox1.LineFocusedColor = System.Drawing.Color.Green;
+            this.textbox1.LineIdleColor = System.Drawing.Color.Gray;
+            this.textbox1.LineMouseHoverColor = System.Drawing.Color.Green;
+            this.textbox1.LineThickness = 3;
+            this.textbox1.Location = new System.Drawing.Point(63, 58);
+            this.textbox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textbox1.Name = "textbox1";
+            this.textbox1.Size = new System.Drawing.Size(75, 25);
+            this.textbox1.TabIndex = 42;
+            this.textbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textbox1.Visible = false;
+            this.textbox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox1_KeyUp);
+            // 
             // WorkerDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.textbox1);
             this.Controls.Add(this.amountListView);
+            this.Controls.Add(this.addButton1);
             this.Controls.Add(this.dateListView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.name1);

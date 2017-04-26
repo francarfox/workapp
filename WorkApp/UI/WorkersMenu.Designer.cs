@@ -59,6 +59,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -67,6 +68,7 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Controls.Add(this.delete1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 368);
@@ -89,7 +91,7 @@
             // workersPanel
             // 
             this.workersPanel.AutoScroll = true;
-            this.workersPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.workersPanel.BackColor = System.Drawing.SystemColors.Control;
             this.workersPanel.Controls.Add(this.workerCell20);
             this.workersPanel.Controls.Add(this.workerCell19);
             this.workersPanel.Controls.Add(this.workerCell18);

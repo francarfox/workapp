@@ -239,6 +239,7 @@
             // 
             // homeMenu1
             // 
+            this.homeMenu1.BackColor = System.Drawing.SystemColors.Control;
             this.homeMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.homeMenu1.Location = new System.Drawing.Point(153, 42);
             this.homeMenu1.Name = "homeMenu1";
