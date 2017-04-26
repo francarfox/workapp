@@ -17,6 +17,7 @@ namespace WorkApp.UI
         Dictionary<string, List<Payment>> paymentsData = new Dictionary<string, List<Payment>>();
         ListViewItem weekSelected;
         Payment paymentSelected;
+        int indexSelected;
 
         public WorkerDetail(Worker worker)
         {
@@ -26,6 +27,10 @@ namespace WorkApp.UI
             name1.Text = worker.name;
             label1.Text = "";
             
+            string columnName = (int)Properties.Settings.Default["Percent"] + "%";
+            dateListView.Columns[1].Text = columnName;
+            amountListView.Columns[1].Text = columnName;
+
             initializeListViews();
         }
 
@@ -80,6 +85,7 @@ namespace WorkApp.UI
             clearAmountListView();
 
             int currentDay = 0;
+            double totalAmount = 0;
 
             foreach (Payment payment in paymentsData[weekSelected.Text])
             {
@@ -87,12 +93,7 @@ namespace WorkApp.UI
                 if (payment.date.Day != currentDay)
                 {
                     currentDay = payment.date.Day;
-                    string dayOfWeekName = payment.date.ToString("dddd", CultureInfo.CreateSpecificCulture("es"));
-                    string currentDayOfWeekName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dayOfWeekName);
-                    string monthName = payment.date.ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
-                    string currentMonthName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monthName);
-
-                    string groupName = currentDayOfWeekName + " " + currentDay.ToString() + " de " + currentMonthName;
+                    string groupName = getGroupName(payment.date);
 
                     ListViewGroup group = new ListViewGroup(groupName);
                     amountListView.Groups.Add(group);
@@ -100,9 +101,31 @@ namespace WorkApp.UI
 
                 //amount item - all
                 ListViewGroup currentGroup = amountListView.Groups[amountListView.Groups.Count - 1];
-                ListViewItem item = new ListViewItem(payment.amount.ToString(), currentGroup);
-                amountListView.Items.Add(item);
+                ListViewItem currentItem = new ListViewItem(payment.amount.ToString("n2"), currentGroup);
+                currentItem.SubItems.Add(calculatePercent(payment.amount).ToString("n2"));
+                amountListView.Items.Add(currentItem);
+
+                totalAmount += payment.amount;
             }
+
+            //total group
+            ListViewGroup totalGroup = new ListViewGroup("Total");
+            amountListView.Groups.Add(totalGroup);
+            ListViewItem totalItem = new ListViewItem(totalAmount.ToString("n2"), totalGroup);
+            totalItem.SubItems.Add(calculatePercent(totalAmount).ToString("n2"));
+            amountListView.Items.Add(totalItem);
+
+            weekSelected.SubItems.Add(calculatePercent(totalAmount).ToString("n2"), Color.Red, Color.Blue, new Font(weekSelected.Font, FontStyle.Bold));
+        }
+
+        public static string getGroupName(DateTime date)
+        {
+            string dayOfWeekName = date.ToString("dddd", CultureInfo.CreateSpecificCulture("es"));
+            string currentDayOfWeekName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dayOfWeekName);
+            string monthName = date.ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+            string currentMonthName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monthName);
+
+            return currentDayOfWeekName + " " + date.Day.ToString() + " de " + currentMonthName;
         }
 
         private void reloadPayments()
@@ -122,11 +145,12 @@ namespace WorkApp.UI
             paymentSelected = null;
         }
 
-        private void calculateTotal()
+        public static double calculatePercent(double total)
         {
-            total1.Text = worker.totalPayments.ToString("n2");
+            int percent = (int)Properties.Settings.Default["Percent"];
+            double result = total * percent / 100;
 
-            addButton1.Text = "Calcular " + (int)Properties.Settings.Default["Percent"] + "%";
+            return result;
         }
 
         public void addPayment(Payment payment)
@@ -142,7 +166,7 @@ namespace WorkApp.UI
             worker.updatePayment(payment, id);
             Session.sharedInstance.saveWorker(worker);
 
-            //loadPayments();
+            reloadPayments();
         }
 
         public void deletePayment(Payment payment)
@@ -160,10 +184,10 @@ namespace WorkApp.UI
 
         private void edit1_Click(object sender, EventArgs e)
         {
-            if (paymentSelected != null)
+            if (paymentSelected != null && indexSelected >= 0)
             {
-                PaymentForm dialog = new PaymentForm("Editar Monto");
-                dialog.loadPayment(paymentSelected);
+                PaymentForm dialog = new PaymentForm(this);
+                dialog.setupEditPayment(paymentSelected, indexSelected);
                 dialog.StartPosition = FormStartPosition.CenterParent;
                 dialog.ShowDialog();
             }
@@ -180,14 +204,6 @@ namespace WorkApp.UI
             }
 
             showOptions(false);
-        }
-
-        private void percent1_Click(object sender, EventArgs e)
-        {
-            int percent = (int)Properties.Settings.Default["Percent"];
-            double result = worker.totalPayments * percent / 100;
-
-            addButton1.Text = "Resultado: " + result;
         }
 
         private void dateListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -217,9 +233,11 @@ namespace WorkApp.UI
                 var payment = payments[e.ItemIndex];
 
                 paymentSelected = payment;
+                indexSelected = e.ItemIndex;
             } else
             {
                 paymentSelected = null;
+                indexSelected = -1;
             }
 
             showOptions(e.IsSelected);
@@ -260,7 +278,8 @@ namespace WorkApp.UI
 
         private void addButton1_Click(object sender, EventArgs e)
         {
-            PaymentForm dialog = new PaymentForm("Agregar Monto");
+            PaymentForm dialog = new PaymentForm(this);
+            dialog.setupNewPayment();
             dialog.StartPosition = FormStartPosition.CenterParent;
             dialog.ShowDialog();
 

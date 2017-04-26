@@ -11,42 +11,88 @@ namespace WorkApp.UI
 {
     public partial class PaymentForm : Form
     {
-        public Payment payment;
+        WorkerDetail context;
+        Payment payment;
+        int id;
+        bool isEditing = false;
 
-        public PaymentForm(string title)
+        public PaymentForm(WorkerDetail context)
         {
+            this.context = context;
             InitializeComponent();
-            Text = title;
         }
 
-        public void loadPayment(Payment payment)
+        public void setupNewPayment()
         {
-            this.payment = payment;
+            Text = "Nuevo Monto";
+            payment = new Payment();
 
-            textbox1.Text = payment.amount.ToString();
+            loadPayment();
         }
 
-        private void addButton1_Click(object sender, EventArgs e)
+        public void setupEditPayment(Payment payment, int id)
+        {
+            Text = "Editar Monto";
+            this.payment = payment;
+            this.id = id;
+            isEditing = true;
+
+            loadPayment();
+        }
+
+        private void loadPayment()
+        {
+            textbox1.Text = payment.amount.ToString();
+            dateButton1.Text = WorkerDetail.getGroupName(payment.date);
+
+            monthCalendar1.Visible = false;
+        }
+
+        private void editAmount()
         {
             try
             {
                 double amount = Convert.ToDouble(textbox1.Text);
-                Payment newPayment = new Payment(amount);
-
-                //addPayment(newPayment);
-                textbox1.Text = "";
+                payment.amount = amount;
             }
             catch { }
         }
 
-        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        private void textbox1_KeyUp(object sender, KeyEventArgs e)
         {
-            
+            if (e.KeyCode == Keys.Enter)
+            {
+                editAmount();
+            }
         }
 
         private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
         {
-            Console.WriteLine(e.End.ToString());
+            editAmount();
+
+            payment.date = e.End;
+            loadPayment();
+        }
+
+        private void dateButton1_Click(object sender, EventArgs e)
+        {
+            monthCalendar1.SelectionEnd = payment.date;
+            monthCalendar1.Visible = true;
+        }
+
+        private void acceptButton1_Click(object sender, EventArgs e)
+        {
+            if (payment.amount <= 0) { return; }
+
+            if (isEditing)
+            {
+                context.finishEdition(payment, id);
+            } else
+            {
+                context.addPayment(payment);
+            }
+
+            Close();
         }
     }
 }

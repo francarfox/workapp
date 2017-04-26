@@ -52,7 +52,7 @@
             this.textbox1.Location = new System.Drawing.Point(106, 38);
             this.textbox1.Margin = new System.Windows.Forms.Padding(4);
             this.textbox1.Name = "textbox1";
-            this.textbox1.Size = new System.Drawing.Size(74, 33);
+            this.textbox1.Size = new System.Drawing.Size(90, 33);
             this.textbox1.TabIndex = 40;
             this.textbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -78,18 +78,19 @@
             this.acceptButton1.IconVisible = true;
             this.acceptButton1.IconZoom = 90D;
             this.acceptButton1.IsTab = false;
-            this.acceptButton1.Location = new System.Drawing.Point(103, 209);
+            this.acceptButton1.Location = new System.Drawing.Point(92, 209);
             this.acceptButton1.Name = "acceptButton1";
             this.acceptButton1.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
             this.acceptButton1.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
             this.acceptButton1.OnHoverTextColor = System.Drawing.Color.White;
             this.acceptButton1.selected = false;
-            this.acceptButton1.Size = new System.Drawing.Size(77, 26);
+            this.acceptButton1.Size = new System.Drawing.Size(114, 40);
             this.acceptButton1.TabIndex = 41;
             this.acceptButton1.Text = "Aceptar";
             this.acceptButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.acceptButton1.Textcolor = System.Drawing.Color.White;
             this.acceptButton1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.acceptButton1.Click += new System.EventHandler(this.acceptButton1_Click);
             // 
             // label2
             // 
@@ -113,8 +114,8 @@
             // 
             // dateButton1
             // 
-            this.dateButton1.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
-            this.dateButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.dateButton1.Activecolor = System.Drawing.SystemColors.ActiveBorder;
+            this.dateButton1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.dateButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.dateButton1.BorderRadius = 0;
             this.dateButton1.ButtonText = "Fecha";
@@ -133,25 +134,25 @@
             this.dateButton1.IconVisible = true;
             this.dateButton1.IconZoom = 90D;
             this.dateButton1.IsTab = false;
-            this.dateButton1.Location = new System.Drawing.Point(103, 106);
+            this.dateButton1.Location = new System.Drawing.Point(92, 109);
             this.dateButton1.Name = "dateButton1";
-            this.dateButton1.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.dateButton1.Normalcolor = System.Drawing.SystemColors.ActiveBorder;
             this.dateButton1.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
             this.dateButton1.OnHoverTextColor = System.Drawing.Color.White;
             this.dateButton1.selected = false;
-            this.dateButton1.Size = new System.Drawing.Size(77, 26);
+            this.dateButton1.Size = new System.Drawing.Size(121, 32);
             this.dateButton1.TabIndex = 44;
             this.dateButton1.Text = "Fecha";
             this.dateButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.dateButton1.Textcolor = System.Drawing.Color.White;
             this.dateButton1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateButton1.Click += new System.EventHandler(this.dateButton1_Click);
             // 
             // monthCalendar1
             // 
             this.monthCalendar1.Location = new System.Drawing.Point(27, 90);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 45;
-            this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
             this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
             // 
             // PaymentForm
