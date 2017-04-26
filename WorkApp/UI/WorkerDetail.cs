@@ -150,7 +150,7 @@ namespace WorkApp.UI
             worker.removePayment(payment);
             Session.sharedInstance.saveWorker(worker);
 
-            //loadPayments();
+            reloadPayments();
         }
 
         public void selectPaymentCell(PaymentCell cell)
@@ -185,15 +185,13 @@ namespace WorkApp.UI
 
         private void delete1_Click(object sender, EventArgs e)
         {
-            //if (cellSelected != null)
-            //{
-            //    deletePayment(cellSelected.payment);
+            if (paymentSelected != null)
+            {
+                deletePayment(paymentSelected);
 
-            //    edit1.Visible = false;
-            //    delete1.Visible = false;
-
-            //    cellSelected = null;
-            //}
+                showOptions(false);
+                paymentSelected = null;
+            }
         }
 
         private void percent1_Click(object sender, EventArgs e)
