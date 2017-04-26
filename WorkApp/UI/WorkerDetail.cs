@@ -13,65 +13,86 @@ namespace WorkApp.UI
 {
     public partial class WorkerDetail : UserControl
     {
-        List<PaymentCell> cells;
         Worker worker;
-        PaymentCell cellSelected;
+        Dictionary<string, List<Payment>> paymentsData = new Dictionary<string, List<Payment>>();
+        ListViewItem weekSelected;
+        Payment paymentSelected;
 
         public WorkerDetail(Worker worker)
         {
             InitializeComponent();
-            initializeCells();
 
             this.worker = worker;
             name1.Text = worker.name;
             label1.Text = "";
-
-            //loadPayments();
+            
             initializeListViews();
-        }
-
-        private void initializeCells()
-        {
-            cells = new List<PaymentCell>();
         }
 
         private void initializeListViews()
         {
-            int currentYear = 0;
+            dateListView.Items.Clear();
+
             int currentMonth = 0;
-            int currentDay = 0;
-            string currentMonthName = "";
-
-            for (int i = 0; i < worker.payments.Count; i++)
+            int currentWeekOfYear = 0;
+            string currentItemName = "";
+            
+            foreach (Payment payment in worker.payments)
             {
-                Payment payment = worker.payments[i];
-
-                //date group - year
-                if (payment.date.Year != currentYear)
-                {
-                    currentYear = payment.date.Year;
-                    ListViewGroup group = new ListViewGroup(currentYear.ToString());
-                    dateListView.Groups.Add(group);
-                }
-
-                //date item - month
+                //date group - month
                 if (payment.date.Month != currentMonth)
                 {
                     currentMonth = payment.date.Month;
-                    ListViewGroup dateGroup = dateListView.Groups[dateListView.Groups.Count - 1];
                     string monthName = payment.date.ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
-                    currentMonthName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monthName);
+                    string groupName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monthName) + " " + payment.date.Year.ToString();
 
-                    ListViewItem dateItem = new ListViewItem(currentMonthName, dateGroup);
-                    dateListView.Items.Add(dateItem);
+                    ListViewGroup group = new ListViewGroup(groupName);
+                    dateListView.Groups.Add(group);
                 }
 
+                //date item - week of month
+                if (payment.date.DayOfYear/7 != currentWeekOfYear)
+                {
+                    currentWeekOfYear = payment.date.DayOfYear / 7;
+                    ListViewGroup dateGroup = dateListView.Groups[dateListView.Groups.Count - 1];
+
+                    DateTime startOfWeek = payment.date.StartOfWeek(DayOfWeek.Monday);
+                    DateTime endOfWeek   = payment.date.EndOfWeek(DayOfWeek.Sunday);
+
+                    currentItemName = "Semana del " + startOfWeek.Day + " al " + endOfWeek.Day;
+                    ListViewItem dateItem = new ListViewItem(currentItemName, dateGroup);
+                    dateListView.Items.Add(dateItem);
+
+                    //
+                    var data = new List<Payment>();
+                    paymentsData.Add(currentItemName, data);
+                }
+
+                //
+                paymentsData[currentItemName].Add(payment);
+            }
+        }
+
+        private void loadPayments()
+        {
+            if (weekSelected == null) { return; }
+
+            clearAmountListView();
+
+            int currentDay = 0;
+
+            foreach (Payment payment in paymentsData[weekSelected.Text])
+            {
                 //amount group - day
                 if (payment.date.Day != currentDay)
                 {
                     currentDay = payment.date.Day;
                     string dayOfWeekName = payment.date.ToString("dddd", CultureInfo.CreateSpecificCulture("es"));
-                    string groupName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dayOfWeekName) + " " + currentDay.ToString() + " de " + currentMonthName;
+                    string currentDayOfWeekName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dayOfWeekName);
+                    string monthName = payment.date.ToString("MMMM", CultureInfo.CreateSpecificCulture("es"));
+                    string currentMonthName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monthName);
+
+                    string groupName = currentDayOfWeekName + " " + currentDay.ToString() + " de " + currentMonthName;
 
                     ListViewGroup group = new ListViewGroup(groupName);
                     amountListView.Groups.Add(group);
@@ -84,35 +105,28 @@ namespace WorkApp.UI
             }
         }
 
-        private void loadPayments()
+        private void reloadPayments()
         {
-            for (int i = 0; i < worker.payments.Count; i++)
-            {
-                Payment payment = worker.payments[i];
-                cells[i].update(payment, this, i);
-            }
+            paymentsData = new Dictionary<string, List<Payment>>();
+            
+            initializeListViews();
+            loadPayments();
 
-            for (int i = worker.payments.Count; i < cells.Count; i++)
-            {
-                cells[i].Visible = false;
-            }
+            weekSelected = null;
+            paymentSelected = null;
+        }
 
-            if (worker.payments.Count < this.cells.Count)
-            {
-                cells[worker.payments.Count].showAddButton();
-                cells[worker.payments.Count].context = this;
-            }
-
-            calculateTotal();
-
-            selectPaymentCell(null);
+        private void clearAmountListView()
+        {
+            amountListView.Items.Clear();
+            paymentSelected = null;
         }
 
         private void calculateTotal()
         {
             total1.Text = worker.totalPayments.ToString("n2");
 
-            percentButton1.Text = "Calcular " + (int)Properties.Settings.Default["Percent"] + "%";
+            addButton1.Text = "Calcular " + (int)Properties.Settings.Default["Percent"] + "%";
         }
 
         public void addPayment(Payment payment)
@@ -120,7 +134,7 @@ namespace WorkApp.UI
             worker.addPayment(payment);
             Session.sharedInstance.saveWorker(worker);
 
-            loadPayments();
+            reloadPayments();
         }
 
         public void finishEdition(Payment payment, int id)
@@ -128,7 +142,7 @@ namespace WorkApp.UI
             worker.updatePayment(payment, id);
             Session.sharedInstance.saveWorker(worker);
 
-            loadPayments();
+            //loadPayments();
         }
 
         public void deletePayment(Payment payment)
@@ -136,17 +150,17 @@ namespace WorkApp.UI
             worker.removePayment(payment);
             Session.sharedInstance.saveWorker(worker);
 
-            loadPayments();
+            //loadPayments();
         }
 
         public void selectPaymentCell(PaymentCell cell)
         {
-            if (cellSelected != null)
-            {
-                cellSelected.deselect();
-            }
+            //    if (cellSelected != null)
+            //    {
+            //        cellSelected.deselect();
+            //    }
 
-            cellSelected = cell;
+            //    cellSelected = cell;
 
             bool selected = cell != null;
             edit1.Visible = selected;
@@ -160,26 +174,26 @@ namespace WorkApp.UI
 
         private void edit1_Click(object sender, EventArgs e)
         {
-            if (cellSelected != null)
-            {
-                cellSelected.edit();
+            //if (cellSelected != null)
+            //{
+            //    cellSelected.edit();
 
-                edit1.Visible = false;
-                delete1.Visible = false;
-            }
+            //    edit1.Visible = false;
+            //    delete1.Visible = false;
+            //}
         }
 
         private void delete1_Click(object sender, EventArgs e)
         {
-            if (cellSelected != null)
-            {
-                deletePayment(cellSelected.payment);
+            //if (cellSelected != null)
+            //{
+            //    deletePayment(cellSelected.payment);
 
-                edit1.Visible = false;
-                delete1.Visible = false;
+            //    edit1.Visible = false;
+            //    delete1.Visible = false;
 
-                cellSelected = null;
-            }
+            //    cellSelected = null;
+            //}
         }
 
         private void percent1_Click(object sender, EventArgs e)
@@ -187,8 +201,86 @@ namespace WorkApp.UI
             int percent = (int)Properties.Settings.Default["Percent"];
             double result = worker.totalPayments * percent / 100;
 
-            percentButton1.Text = "Resultado: " + result;
+            addButton1.Text = "Resultado: " + result;
+        }
+
+        private void dateListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected)
+            {
+                var item = dateListView.Items[e.ItemIndex];
+                weekSelected = item;
+
+                loadPayments();
+            } else
+            {
+                weekSelected = null;
+
+                clearAmountListView();
+            }
+
+            showOptions(false);
+        }
+
+        private void amountListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected && weekSelected != null)
+            {
+                var item = amountListView.Items[e.ItemIndex];
+                var payments = paymentsData[weekSelected.Text];
+                var payment = payments[e.ItemIndex];
+
+                paymentSelected = payment;
+            } else
+            {
+                paymentSelected = null;
+            }
+
+            showOptions(e.IsSelected);
+        }
+
+        private void showOptions(bool show)
+        {
+            edit1.Visible = show;
+            delete1.Visible = show;
+        }
+
+        private void addButton1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                double amount = Convert.ToDouble(textbox1.Text);
+                Payment newPayment = new Payment(amount);
+
+                addPayment(newPayment);
+                textbox1.Text = "";
+            }
+            catch { }
         }
 
     }
+}
+
+public static class DateTimeExtensions
+{
+    public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+    {
+        int diff = dt.DayOfWeek - startOfWeek;
+        if (diff < 0)
+        {
+            diff += 7;
+        }
+        return dt.AddDays(-1 * diff).Date;
+    }
+
+    public static DateTime EndOfWeek(this DateTime dt, DayOfWeek endOfWeek)
+    {
+        int diff = endOfWeek - dt.DayOfWeek;
+        if (diff < 0)
+        {
+            diff += 7;
+        }
+        return dt.AddDays(diff).Date;
+    }
+
 }
