@@ -14,13 +14,19 @@ namespace WorkApp.UI
     {
         List<WorkerCell> cells;
         WorkerCell cellSelected;
+        int currentPage = 0;
 
         public WorkersMenu()
         {
             InitializeComponent();
             initializeCells();
 
+            back1.Visible = false;
+            next1.Visible = false;
+
             loadWorkers();
+
+            delete1.Visible = false;
         }
 
         private void initializeCells()
@@ -51,24 +57,34 @@ namespace WorkApp.UI
         public void loadWorkers()
         {
             List<Worker> workers = Session.sharedInstance.company.workers;
+            int workersCount = 0;
 
-            for (int i = 0; i < workers.Count; i++)
+            for (int i = 0; i < cells.Count; i++)
             {
-                Worker worker = workers[i];
-                cells[i].update(worker, this);
+
+                if ((i + 20 * currentPage) < workers.Count)
+                {
+                    Worker worker = workers[i + 20 * currentPage];
+                    cells[i].update(worker, this);
+                    cells[i].Visible = true;
+
+                    workersCount += 1;
+                } else
+                {
+                    cells[i].Visible = false;
+                }
             }
 
-            for (int i = workers.Count; i < cells.Count; i++)
+            if (workersCount < cells.Count)
             {
-                cells[i].Visible = false;
-            }
+                cells[workersCount].showAddButton();
+                cells[workersCount].context = this;
 
-            if (workers.Count < this.cells.Count)
+                next1.Visible = false;
+            } else
             {
-                cells[workers.Count].showAddButton();
-                cells[workers.Count].context = this;
+                next1.Visible = true;
             }
-
         }
 
         public void addWorker(Worker worker)
@@ -122,6 +138,29 @@ namespace WorkApp.UI
 
                 cellSelected = null;
             }
+        }
+
+        private void back1_Click(object sender, EventArgs e)
+        {
+            currentPage -= 1;
+            next1.Visible = true;
+
+            loadWorkers();
+
+            if (currentPage <= 0)
+            {
+                currentPage = 0;
+                back1.Visible = false;
+                return;
+            }
+        }
+
+        private void next1_Click(object sender, EventArgs e)
+        {
+            currentPage += 1;
+            back1.Visible = true;
+
+            loadWorkers();
         }
     }
 }

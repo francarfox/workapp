@@ -30,14 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkerDetail));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.back = new System.Windows.Forms.PictureBox();
-            this.edit1 = new System.Windows.Forms.PictureBox();
-            this.delete1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.addButton1 = new ns1.BunifuFlatButton();
             this.name1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.dateListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -45,11 +41,15 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textbox1 = new ns1.BunifuMaterialTextbox();
+            this.edit1 = new System.Windows.Forms.PictureBox();
+            this.delete1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.back = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.back)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.delete1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.back)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -61,44 +61,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(553, 37);
             this.panel1.TabIndex = 1;
-            // 
-            // back
-            // 
-            this.back.BackColor = System.Drawing.Color.Transparent;
-            this.back.Image = ((System.Drawing.Image)(resources.GetObject("back.Image")));
-            this.back.Location = new System.Drawing.Point(14, 12);
-            this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(20, 25);
-            this.back.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.back.TabIndex = 0;
-            this.back.TabStop = false;
-            this.back.MouseClick += new System.Windows.Forms.MouseEventHandler(this.back_MouseClick);
-            // 
-            // edit1
-            // 
-            this.edit1.BackColor = System.Drawing.Color.Transparent;
-            this.edit1.Image = global::WorkApp.Properties.Resources.edit;
-            this.edit1.Location = new System.Drawing.Point(460, 361);
-            this.edit1.Name = "edit1";
-            this.edit1.Size = new System.Drawing.Size(25, 25);
-            this.edit1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.edit1.TabIndex = 4;
-            this.edit1.TabStop = false;
-            this.edit1.Visible = false;
-            this.edit1.Click += new System.EventHandler(this.edit1_Click);
-            // 
-            // delete1
-            // 
-            this.delete1.BackColor = System.Drawing.Color.Transparent;
-            this.delete1.Image = global::WorkApp.Properties.Resources.delete;
-            this.delete1.Location = new System.Drawing.Point(494, 358);
-            this.delete1.Name = "delete1";
-            this.delete1.Size = new System.Drawing.Size(24, 28);
-            this.delete1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.delete1.TabIndex = 3;
-            this.delete1.TabStop = false;
-            this.delete1.Visible = false;
-            this.delete1.Click += new System.EventHandler(this.delete1_Click);
             // 
             // panel2
             // 
@@ -165,17 +127,6 @@
             this.label1.TabIndex = 24;
             this.label1.Text = "label1";
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(82, 38);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(42, 54);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 22;
-            this.pictureBox4.TabStop = false;
-            // 
             // dateListView
             // 
             this.dateListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -192,12 +143,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Semana";
-            this.columnHeader1.Width = 147;
+            this.columnHeader1.Width = 127;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "40%";
-            this.columnHeader2.Width = 80;
+            this.columnHeader2.Width = 72;
             // 
             // amountListView
             // 
@@ -215,12 +166,12 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "Monto";
-            this.columnHeader5.Width = 129;
+            this.columnHeader5.Width = 109;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "40%";
-            this.columnHeader6.Width = 91;
+            this.columnHeader6.Width = 73;
             // 
             // textbox1
             // 
@@ -244,6 +195,55 @@
             this.textbox1.Visible = false;
             this.textbox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox1_KeyUp);
             // 
+            // edit1
+            // 
+            this.edit1.BackColor = System.Drawing.Color.Transparent;
+            this.edit1.Image = global::WorkApp.Properties.Resources.edit;
+            this.edit1.Location = new System.Drawing.Point(460, 361);
+            this.edit1.Name = "edit1";
+            this.edit1.Size = new System.Drawing.Size(25, 25);
+            this.edit1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.edit1.TabIndex = 4;
+            this.edit1.TabStop = false;
+            this.edit1.Visible = false;
+            this.edit1.Click += new System.EventHandler(this.edit1_Click);
+            // 
+            // delete1
+            // 
+            this.delete1.BackColor = System.Drawing.Color.Transparent;
+            this.delete1.Image = global::WorkApp.Properties.Resources.delete;
+            this.delete1.Location = new System.Drawing.Point(494, 358);
+            this.delete1.Name = "delete1";
+            this.delete1.Size = new System.Drawing.Size(24, 28);
+            this.delete1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.delete1.TabIndex = 3;
+            this.delete1.TabStop = false;
+            this.delete1.Visible = false;
+            this.delete1.Click += new System.EventHandler(this.delete1_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(82, 38);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(42, 54);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 22;
+            this.pictureBox4.TabStop = false;
+            // 
+            // back
+            // 
+            this.back.BackColor = System.Drawing.Color.Transparent;
+            this.back.Image = ((System.Drawing.Image)(resources.GetObject("back.Image")));
+            this.back.Location = new System.Drawing.Point(14, 12);
+            this.back.Name = "back";
+            this.back.Size = new System.Drawing.Size(15, 22);
+            this.back.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.back.TabIndex = 0;
+            this.back.TabStop = false;
+            this.back.MouseClick += new System.Windows.Forms.MouseEventHandler(this.back_MouseClick);
+            // 
             // WorkerDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,10 +263,10 @@
             this.Name = "WorkerDetail";
             this.Size = new System.Drawing.Size(553, 406);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.back)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.delete1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.back)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

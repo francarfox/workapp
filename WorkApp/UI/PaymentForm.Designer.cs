@@ -55,6 +55,7 @@
             this.textbox1.Size = new System.Drawing.Size(90, 33);
             this.textbox1.TabIndex = 40;
             this.textbox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textbox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textbox1_KeyUp);
             // 
             // acceptButton1
             // 

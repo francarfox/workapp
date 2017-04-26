@@ -82,6 +82,8 @@ namespace WorkApp.UI
 
         private void acceptButton1_Click(object sender, EventArgs e)
         {
+            editAmount();
+
             if (payment.amount <= 0) { return; }
 
             if (isEditing)

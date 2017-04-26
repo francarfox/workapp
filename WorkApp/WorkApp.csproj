@@ -196,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default-user.ico" />
+    <Content Include="Resources\next.png" />
     <None Include="Resources\workapp.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

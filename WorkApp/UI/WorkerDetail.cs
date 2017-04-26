@@ -112,10 +112,17 @@ namespace WorkApp.UI
             ListViewGroup totalGroup = new ListViewGroup("Total");
             amountListView.Groups.Add(totalGroup);
             ListViewItem totalItem = new ListViewItem(totalAmount.ToString("n2"), totalGroup);
+            totalItem.Font = new Font(totalItem.Font, FontStyle.Bold);
             totalItem.SubItems.Add(calculatePercent(totalAmount).ToString("n2"));
             amountListView.Items.Add(totalItem);
 
-            weekSelected.SubItems.Add(calculatePercent(totalAmount).ToString("n2"), Color.Red, Color.Blue, new Font(weekSelected.Font, FontStyle.Bold));
+            if (weekSelected.SubItems.Count > 1)
+            {
+                weekSelected.SubItems[1].Text = calculatePercent(totalAmount).ToString("n2");
+            } else
+            {
+                weekSelected.SubItems.Add(calculatePercent(totalAmount).ToString("n2"));
+            }
         }
 
         public static string getGroupName(DateTime date)
@@ -134,8 +141,7 @@ namespace WorkApp.UI
             
             initializeListViews();
             loadPayments();
-
-            weekSelected = null;
+            
             paymentSelected = null;
         }
 
@@ -228,12 +234,15 @@ namespace WorkApp.UI
         {
             if (e.IsSelected && weekSelected != null)
             {
-                var item = amountListView.Items[e.ItemIndex];
-                var payments = paymentsData[weekSelected.Text];
-                var payment = payments[e.ItemIndex];
+                try
+                {
+                    var item = amountListView.Items[e.ItemIndex];
+                    var payments = paymentsData[weekSelected.Text];
+                    var payment = payments[e.ItemIndex];
 
-                paymentSelected = payment;
-                indexSelected = e.ItemIndex;
+                    paymentSelected = payment;
+                    indexSelected = e.ItemIndex;
+                } catch { }
             } else
             {
                 paymentSelected = null;
