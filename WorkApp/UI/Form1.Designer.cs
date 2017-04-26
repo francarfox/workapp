@@ -42,6 +42,7 @@
             this.bunifuElipse1 = new ns1.BunifuElipse(this.components);
             this.bunifuDragControl1 = new ns1.BunifuDragControl(this.components);
             this.homeMenu1 = new WorkApp.UI.HomeMenu();
+            this.workersMenu1 = new WorkApp.UI.WorkersMenu();
             this.settingsMenu1 = new WorkApp.UI.SettingsMenu();
             this.topPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.close)).BeginInit();
@@ -238,11 +239,20 @@
             // 
             // homeMenu1
             // 
+            this.homeMenu1.BackColor = System.Drawing.SystemColors.Control;
             this.homeMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.homeMenu1.Location = new System.Drawing.Point(153, 42);
             this.homeMenu1.Name = "homeMenu1";
             this.homeMenu1.Size = new System.Drawing.Size(553, 406);
             this.homeMenu1.TabIndex = 15;
+            // 
+            // workersMenu1
+            // 
+            this.workersMenu1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.workersMenu1.Location = new System.Drawing.Point(153, 42);
+            this.workersMenu1.Name = "workersMenu1";
+            this.workersMenu1.Size = new System.Drawing.Size(553, 406);
+            this.workersMenu1.TabIndex = 15;
             // 
             // settingsMenu1
             // 
@@ -259,6 +269,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(706, 448);
             this.Controls.Add(this.homeMenu1);
+            this.Controls.Add(this.workersMenu1);
             this.Controls.Add(this.settingsMenu1);
             this.Controls.Add(this.sidePanel);
             this.Controls.Add(this.topPanel);

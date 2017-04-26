@@ -43,16 +43,24 @@ namespace WorkApp
         public void addPayment(Payment payment)
         {
             payments.Add(payment);
+            sortPayments();
         }
 
         public void updatePayment(Payment payment, int id)
         {
             payments[id].update(payment.amount);
+            sortPayments();
         }
 
         public void removePayment(Payment payment)
         {
             payments.Remove(payment);
+            sortPayments();
+        }
+
+        private void sortPayments()
+        {
+            payments = payments.OrderBy(o => o.date).ToList();
         }
 
     }

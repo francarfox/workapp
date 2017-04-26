@@ -72,7 +72,7 @@
             // 
             // textbox1
             // 
-            this.textbox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.textbox1.BackColor = System.Drawing.SystemColors.Control;
             this.textbox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.textbox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.textbox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
