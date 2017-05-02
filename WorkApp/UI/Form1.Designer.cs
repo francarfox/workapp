@@ -249,6 +249,7 @@
             // workersMenu1
             // 
             this.workersMenu1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.workersMenu1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.workersMenu1.Location = new System.Drawing.Point(153, 42);
             this.workersMenu1.Name = "workersMenu1";
             this.workersMenu1.Size = new System.Drawing.Size(553, 406);

@@ -62,7 +62,7 @@ namespace WorkApp.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                editAmount();
+                acceptButton1_Click(sender, e);
             }
         }
 
