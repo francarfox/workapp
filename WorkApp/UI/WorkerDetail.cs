@@ -31,6 +31,9 @@ namespace WorkApp.UI
             dateListView.Columns[1].Text = columnName;
             amountListView.Columns[1].Text = columnName;
 
+            amountListView.FullRowSelect = true;
+            amountListView.MultiSelect = false;
+
             initializeListViews();
         }
 
@@ -39,7 +42,6 @@ namespace WorkApp.UI
             dateListView.Items.Clear();
 
             int currentMonth = 0;
-            int currentWeekOfYear = 0;
             string currentItemName = "";
             
             foreach (Payment payment in worker.payments)
@@ -56,15 +58,15 @@ namespace WorkApp.UI
                 }
 
                 //date item - week of month
-                if (payment.date.DayOfYear/7 != currentWeekOfYear)
+                DateTime startOfWeek = payment.date.StartOfWeek(DayOfWeek.Monday);
+                DateTime endOfWeek = payment.date.EndOfWeek(DayOfWeek.Sunday);
+                string itemName = "Semana del " + startOfWeek.Day + " al " + endOfWeek.Day;
+
+                if (currentItemName != itemName)
                 {
-                    currentWeekOfYear = payment.date.DayOfYear / 7;
+                    currentItemName = itemName;
+
                     ListViewGroup dateGroup = dateListView.Groups[dateListView.Groups.Count - 1];
-
-                    DateTime startOfWeek = payment.date.StartOfWeek(DayOfWeek.Monday);
-                    DateTime endOfWeek   = payment.date.EndOfWeek(DayOfWeek.Sunday);
-
-                    currentItemName = "Semana del " + startOfWeek.Day + " al " + endOfWeek.Day;
                     ListViewItem dateItem = new ListViewItem(currentItemName, dateGroup);
                     dateListView.Items.Add(dateItem);
 
@@ -80,7 +82,11 @@ namespace WorkApp.UI
 
         private void loadPayments()
         {
-            if (weekSelected == null) { return; }
+            if (weekSelected == null || paymentsData.Count == 0)
+            {
+                clearAmountListView();
+                return;
+            }
 
             clearAmountListView();
 
@@ -143,6 +149,12 @@ namespace WorkApp.UI
             paymentsData = new Dictionary<string, List<Payment>>();
             
             initializeListViews();
+
+            if (!paymentsData.ContainsKey(weekSelected.Text))
+            {
+                weekSelected = null;
+            }
+
             loadPayments();
             
             paymentSelected = null;
@@ -235,7 +247,9 @@ namespace WorkApp.UI
 
         private void amountListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (amountListView.Items[e.ItemIndex].Group.Header == "Total")
+            var currentGroup = amountListView.Items[e.ItemIndex].Group;
+            
+            if (currentGroup != null && currentGroup.Header == "Total")
             {
                 amountListView.Items[e.ItemIndex].Selected = false;
                 return;
