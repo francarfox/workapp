@@ -31,8 +31,9 @@ namespace WorkApp.UI
             dateListView.Columns[1].Text = columnName;
             amountListView.Columns[1].Text = columnName;
 
-            amountListView.FullRowSelect = true;
+            dateListView.MultiSelect = false;
             amountListView.MultiSelect = false;
+            amountListView.FullRowSelect = true;
 
             initializeListViews();
         }
@@ -150,7 +151,7 @@ namespace WorkApp.UI
             
             initializeListViews();
 
-            if (!paymentsData.ContainsKey(weekSelected.Text))
+            if (weekSelected != null && !paymentsData.ContainsKey(weekSelected.Text))
             {
                 weekSelected = null;
             }
